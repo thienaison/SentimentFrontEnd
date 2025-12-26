@@ -15,6 +15,7 @@ function App() {
   const [typeSentiment,setTypeSentiment] = useState('5sentiment');
   const [colors,setColors] = useState([])
   const [dataChart,setDataChart] = useState([]);
+  const [loading,setLoading] = useState(false);
   
   // xử lý khi click chọn file bị ẩn
   const handleClickFile =(e)=>{
@@ -45,6 +46,7 @@ function App() {
       uploadFile(fileValue, typeSentiment).then((res)=>{
         if(res){
           setData(res);
+          setLoading(false);
         }
       })
     }
@@ -131,7 +133,7 @@ function App() {
                 </select>
               </div>
               {valid && <div className='valid'>{valid}</div>}
-              <button type="submit" className='btn_click'>Submit</button>
+              <button type="submit" className='btn_click' onClick={()=>setLoading(true)}>Submit</button>
           </form>
         </div>
         <div style={{ width: 300, height: 300, position: "relative" }}>
@@ -171,8 +173,9 @@ function App() {
           </div>
         </div>
       </div>
+      {loading && <div className='loader'></div>}
       <div className="container_list">
-          {data && <Pagination data={data} type={typeSentiment} /> }
+          { !loading && data && <Pagination data={data} type={typeSentiment} /> }
       </div>
     </div>
   );
