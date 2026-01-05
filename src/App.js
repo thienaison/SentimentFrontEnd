@@ -13,7 +13,7 @@ function App() {
   const [valid,setValid] = useState('');
   const [data,setData] = useState(null);
   const [typeSentiment,setTypeSentiment] = useState('5sentiment');
-  const [colors,setColors] = useState([])
+  const [colors,setColors] = useState([""])
   const [dataChart,setDataChart] = useState([]);
   const [loading,setLoading] = useState(false);
   
@@ -104,18 +104,16 @@ function App() {
         { name: "Positive", value: count[2] },
       ])
     }
-    
-  },[data,typeSentiment]);
 
-  //xử lý màu biểu đồ theo loại sentiment
-  useEffect(()=>{
+    //Xử lý màu
     if(typeSentiment === '5sentiment'){
       setColors(["#ff4d4f", "#ff7a45", "#ffd666", "#73d13d", "#389e0d"]);
     }
     else if(typeSentiment === '3sentiment'){
       setColors(["#ff4d4f", "#ffd666", "#73d13d"]);
     }
-  },[typeSentiment])
+    
+  },[data]);
 
   return (
     <div className="app">
@@ -133,7 +131,9 @@ function App() {
                 </select>
               </div>
               {valid && <div className='valid'>{valid}</div>}
-              <button type="submit" className='btn_click' onClick={()=>setLoading(true)}>Submit</button>
+              <button type="submit" className='btn_click' onClick={()=>{
+                if(fileValue){setLoading(true)}
+              }}>Submit</button>
           </form>
         </div>
         <div style={{ width: 300, height: 300, position: "relative" }}>
@@ -145,9 +145,10 @@ function App() {
               dataKey="value"
               startAngle={90}
               endAngle={-270}
+              stroke='transparent'
             >
               {dataChart.map((entry, index) => (
-                <Cell key={index} fill={colors[index]} />
+                <Cell key={index} fill={colors[index]}  />
               ))}
             </Pie>
 
@@ -167,8 +168,8 @@ function App() {
           >
             {total}
             <br />
-            <span style={{ fontSize: 14, fontWeight: 400, color: "#888" }}>
-              Packet count
+            <span style={{ fontSize: 14, fontWeight: 400, color: "#d1cacaff" }}>
+              Packet Count
             </span>
           </div>
         </div>

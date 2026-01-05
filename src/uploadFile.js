@@ -6,7 +6,7 @@ export const uploadFile = async(file, typeSentiment) => {
     formData.append('type', typeSentiment);
 
     try{
-        const res = await axios.post('http://192.168.1.3:8000/predict-batch', formData, {
+        const res = await axios.post('https://phongnt251199-sentimentmodel.hf.space/predict-batch', formData, {
             headers: {
                 'Content-Type': 'multipart/form-data',
             }
