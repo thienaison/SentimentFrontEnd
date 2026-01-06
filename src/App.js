@@ -136,7 +136,7 @@ function App() {
               }}>Submit</button>
           </form>
         </div>
-        <div style={{ width: 300, height: 300, position: "relative" }}>
+        <div style={{ width: 300, height: 300, position: "relative"}}>
           <PieChart width={300} height={300} >
             <Pie
               data={dataChart}
@@ -177,6 +177,9 @@ function App() {
       {loading && <div className='loader'></div>}
       <div className="container_list">
           { !loading && data && <Pagination data={data} type={typeSentiment} /> }
+      </div>
+      <div className='image'>
+          <img src={require('./background.jpg')} />
       </div>
     </div>
   );
